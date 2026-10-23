@@ -30,6 +30,7 @@
 - [Come si avvia](#come-si-avvia)
 - [Installazione](#installazione)
 - [Il sistema](#il-sistema)
+- [Il desktop](#il-desktop)
 - [LudemOS Home, il launcher](#ludemos-home-il-launcher)
 - [Problemi risolti](#problemi-risolti)
 - [Giochi provati](#giochi-provati)
@@ -178,6 +179,22 @@ ufficiale una serie di modifiche esplicite e controllate, e un secondo script ve
 
 Configurazione di serie: Wi-Fi con risparmio energetico spento, zram, `systemd-timesyncd` (sotto Linux l'orologio
 della PS5 parte dal 1970), GTT a 10 GiB, SSH solo con chiave, KDE senza sospensione né blocco schermo.
+
+---
+
+## Il desktop
+
+Sotto il launcher c'è un desktop **KDE Plasma 6** completo su Wayland, a 3840×2160 con scala 2, raggiungibile in
+ogni momento da Accensione → Desktop (il tasto PS riporta al launcher). Catture fatte sulla console.
+
+<p align="center"><img src="docs/img/desktop-desktop.jpg" alt="Desktop KDE Plasma su PS5" width="900"></p>
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/img/desktop-menu.jpg" alt="Menu delle applicazioni"><br><sub><b>Menu delle applicazioni</b>: Firefox, Dolphin, Discover, impostazioni di sistema.</sub></td>
+    <td width="50%"><img src="docs/img/desktop-info.jpg" alt="Informazioni sul sistema"><br><sub><b>Informazioni sul sistema</b>: Plasma 6.8.1, Qt 6.12, kernel 7.1.7-ludemos5, APU AMD della PS5 (16 thread), 13,6 GiB di RAM disponibili.</sub></td>
+  </tr>
+</table>
 
 ---
 
