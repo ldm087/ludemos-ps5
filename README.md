@@ -61,7 +61,7 @@ hardware differs from the models the original project was tested on.
 - **Installation with no external hardware.** The kernel and installer load from the console's internal storage;
   the installer joins Wi-Fi, prepares the M.2 and downloads the system, resuming after interruptions.
 - **Slim hardware fixed in the kernel.** MediaTek MT7921 Wi-Fi and Bluetooth, DualSense over Bluetooth, the Slim
-  fan, CPU/GPU frequency ranges, HDMI audio: six patches of our own (one ported from upstream).
+  fan, CPU/GPU frequency ranges, HDMI audio, HDR10: seven patches (two ported from upstream).
 - **Updates that never break booting.** A signed pacman repository; the boot kernel is never touched, new kernels
   are installed alongside it and confirmed only if the network works.
 - **Power management.** A daemon drives fan and clocks: idle at 43 °C, full boost within seconds of starting a
@@ -88,6 +88,7 @@ hardware differs from the models the original project was tested on.
 | Windows (Proton) and Linux games | ✅ | Control and The Witcher 3 Remastered at 1080p, locked 60 fps with LudemNR |
 | System and kernel updates | ✅ | `ludemos-aggiorna`, switch via kexec |
 | HDMI audio | ✅ | fix for the FLAVA3 HDMI chip |
+| HDR10 | ✅ | KDE desktop and games started from the launcher; 12-bit YCbCr 4:2:2 at 1080p60/2160p60 |
 | Clean shutdown from Linux | ✅ | `systemctl poweroff` really powers off the console |
 | 120 Hz output | ❌ | the HDMI bridge only exposes 60 Hz modes |
 | Same DualSense pairing in PS5 OS and Linux | ❌ | must be re-paired when switching systems |
@@ -253,6 +254,8 @@ interface is in Italian.
 - **In game**: the PS button brings the launcher on top of the game (through a KWin script over D-Bus, since focus
   stealing prevention rejects normal requests), then *Resume* or *Quit game*, which also closes processes that
   detached inside Steam's container.
+- **HDR per game**: when the KDE desktop is in HDR, games start in Gamescope with HDR enabled and Proton exposes an
+  HDR10 swapchain, so the game's own HDR option appears.
 - **In-game boost**: the launcher tags the game process (`LUDEMOS_GIOCO=1`) and `ludemos-fand` raises the clocks.
 - **System**: fan, Wi-Fi, Bluetooth, volume, updates, DualSense pairing, MangoHud levels, GameMode, nested
   Gamescope for integer-scaled 1080p output on the 4K TV.
@@ -401,6 +404,18 @@ Each entry gives the symptom, the cause found and the fix.
 
 - **Fix**: patch `0006`, ported from the ps5-linux community fix for the FLAVA3 HDMI chip (different `Naud` value
   in the audio encoder), plus a log line reporting the detected chip.
+</details>
+
+<details>
+<summary><b>HDR: washed-out picture, the TV never switched to HDR</b></summary>
+
+- **Analysis**: KDE reported the screen as "HDR incapable" because the base image disables it on purpose (the PS5
+  routes DisplayPort through an HDMI converter chip). With that removed, the GPU sent a proper HDR signal, but the
+  picture was washed out: the HDMI chip was still configured for SDR and never told the TV it was HDR.
+- **Fix**: patch `0007`, adapted from the ps5-linux community work on the FLAVA3 chip: the HDR metadata packet
+  (DRM InfoFrame) and BT.2020 colorimetry are written to the chip, and in HDR the output becomes 12-bit YCbCr 4:2:2,
+  which fits the same HDMI bandwidth as 8-bit RGB. The launcher then passes HDR through Gamescope to the games.
+  Result: the TV shows HDR10 with correct colours.
 </details>
 
 <details>
@@ -561,7 +576,8 @@ games: **Control** and **The Witcher 3 Remastered** in DX12 at 1080p and **locke
 
 LudemOS exists thanks to the work of other open source projects:
 
-- [ps5-linux](https://github.com/ps5-linux): loader, kernel patches and PS5 drivers, `m2_init` tools, base images.
+- [ps5-linux](https://github.com/ps5-linux): loader, kernel patches and PS5 drivers, `m2_init` tools, base images,
+  HDR support for the FLAVA3 HDMI chip.
 - [ps5-payload-dev](https://github.com/ps5-payload-dev): payload SDK and `elfldr`.
 - [Relapse](https://github.com/ntfargo/Relapse-Exploit) (ntfargo and contributors): WebKit and kernel exploit.
 - [WebKit Autoloader](https://github.com/itsPLK/ps5-webkit-autoloader) and

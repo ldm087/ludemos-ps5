@@ -61,7 +61,7 @@ monta hardware diverso dai modelli su cui il progetto originale è stato provato
 - **Installazione senza hardware esterno.** Kernel e installatore si caricano dalla memoria interna della console;
   l'installatore si collega al Wi-Fi, prepara l'M.2 e scarica il sistema con ripresa dopo le interruzioni.
 - **Hardware della Slim sistemato nel kernel.** Wi-Fi e Bluetooth MediaTek MT7921, DualSense via Bluetooth,
-  ventola della Slim, intervalli di frequenza CPU/GPU, audio HDMI: sei patch nostre (una portata da upstream).
+  ventola della Slim, intervalli di frequenza CPU/GPU, audio HDMI, HDR10: sette patch (due portate da upstream).
 - **Aggiornamenti che non rompono l'avvio.** Repository pacman firmato; il kernel di avvio non si tocca mai, i
   kernel nuovi si installano accanto e vengono confermati solo se la rete funziona.
 - **Gestione energetica.** Un demone governa ventola e frequenze: a riposo la console resta a 43 °C, in gioco
@@ -88,6 +88,7 @@ monta hardware diverso dai modelli su cui il progetto originale è stato provato
 | Giochi Windows (Proton) e Linux | ✅ | Control e The Witcher 3 Remastered a 1080p e 60 fps fissi con LudemNR |
 | Aggiornamenti di sistema e kernel | ✅ | `ludemos-aggiorna`, passaggio con kexec |
 | Audio HDMI | ✅ | correzione per il chip HDMI FLAVA3 |
+| HDR10 | ✅ | desktop KDE e giochi avviati dal launcher; YCbCr 4:2:2 a 12 bit a 1080p60/2160p60 |
 | Spegnimento pulito da Linux | ✅ | `systemctl poweroff` spegne davvero la console |
 | Uscita a 120 Hz | ❌ | il ponte HDMI espone solo modi a 60 Hz |
 | Stesso abbinamento DualSense in PS5 OS e Linux | ❌ | passando da un sistema all'altro va riabbinato |
@@ -253,6 +254,8 @@ Lo stile riprende l'interfaccia delle console: artwork a tutto schermo, icone ve
 - **Durante il gioco**: il tasto PS riporta il launcher sopra il gioco (con uno script KWin via D-Bus, perché la
   protezione dal furto del fuoco rifiuta le richieste normali), poi *Torna al gioco* o *Esci dal gioco*, che chiude
   anche i processi staccati dentro il contenitore di Steam.
+- **HDR per gioco**: se il desktop KDE è in HDR, i giochi partono in Gamescope con l'HDR attivo e Proton offre al
+  gioco un'uscita HDR10, quindi compare l'opzione HDR del gioco.
 - **Boost in gioco**: il launcher marca il processo del gioco (`LUDEMOS_GIOCO=1`) e `ludemos-fand` alza le
   frequenze.
 - **Sistema**: ventola, Wi-Fi, Bluetooth, volume, aggiornamenti, abbinamento DualSense, MangoHud a livelli,
@@ -401,6 +404,18 @@ Ogni voce riporta il sintomo, la causa trovata e la correzione.
 
 - **Correzione**: patch `0006`, portata dalla correzione della comunità ps5-linux per il chip HDMI FLAVA3 (valore
   `Naud` diverso nell'encoder audio), con una riga nel registro che indica il chip rilevato.
+</details>
+
+<details>
+<summary><b>HDR: immagine sbiadita, la TV non passava in HDR</b></summary>
+
+- **Analisi**: KDE vedeva lo schermo come "HDR incapable" perché l'immagine di base lo spegne apposta (la PS5 passa
+  da un chip che converte DisplayPort in HDMI). Tolto quel blocco, la scheda video mandava un segnale HDR corretto ma
+  l'immagine era slavata: il chip HDMI restava configurato per l'SDR e non diceva alla TV che il segnale era HDR.
+- **Correzione**: patch `0007`, adattata dal lavoro della comunità ps5-linux sul chip FLAVA3: nel chip si scrivono il
+  pacchetto dei metadati HDR (DRM InfoFrame) e la colorimetria BT.2020, e in HDR l'uscita passa a YCbCr 4:2:2 a 12 bit,
+  che occupa la stessa banda HDMI dell'RGB a 8 bit. Il launcher poi porta l'HDR ai giochi attraverso Gamescope.
+  Risultato: la TV mostra HDR10 con i colori giusti.
 </details>
 
 <details>
@@ -563,7 +578,7 @@ Risultato attuale su una scena di prova mai vista (960×540 → 1080p): bilinear
 LudemOS esiste grazie al lavoro di altri progetti open source:
 
 - [ps5-linux](https://github.com/ps5-linux): loader, patch del kernel e driver PS5, strumenti `m2_init`,
-  immagini di base.
+  immagini di base, supporto HDR per il chip HDMI FLAVA3.
 - [ps5-payload-dev](https://github.com/ps5-payload-dev): SDK dei payload ed `elfldr`.
 - [Relapse](https://github.com/ntfargo/Relapse-Exploit) (ntfargo e collaboratori): exploit WebKit e kernel.
 - [WebKit Autoloader](https://github.com/itsPLK/ps5-webkit-autoloader) e
