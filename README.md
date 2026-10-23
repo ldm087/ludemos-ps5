@@ -192,7 +192,7 @@ ogni momento da Accensione → Desktop (il tasto PS riporta al launcher). Cattur
 <table>
   <tr>
     <td width="50%"><img src="docs/img/desktop-menu.jpg" alt="Menu delle applicazioni"><br><sub><b>Menu delle applicazioni</b>: Firefox, Dolphin, Discover, impostazioni di sistema.</sub></td>
-    <td width="50%"><img src="docs/img/desktop-info.jpg" alt="Informazioni sul sistema"><br><sub><b>Informazioni sul sistema</b>: Plasma 6.8.1, Qt 6.12, kernel 7.1.7-ludemos5, APU AMD della PS5 (16 thread), 13,6 GiB di RAM disponibili.</sub></td>
+    <td width="50%"><img src="docs/img/desktop-info.jpg" alt="Informazioni sul sistema"><br><sub><b>Informazioni sul sistema</b>: LudemOS PS5, Plasma 6.8.1, Qt 6.12, kernel 7.1.7-ludemos5, APU AMD della PS5 (16 thread), 13,6 GiB di RAM disponibili.</sub></td>
   </tr>
 </table>
 
