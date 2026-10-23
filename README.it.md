@@ -85,7 +85,7 @@ monta hardware diverso dai modelli su cui il progetto originale è stato provato
 | Ventola della Slim | ✅ | obiettivo di temperatura impostato dal kernel e dal demone |
 | Frequenze CPU/GPU | ✅ | riposo 1600–1800 / 800–1000 MHz, boost in gioco 3500 / 2230 MHz |
 | Desktop KDE Plasma (Wayland) a 4K | ✅ | scala 2, tastiera su schermo |
-| Giochi Windows (Proton) e Linux | ✅ | Control e The Witcher 3 Remastered a 1080p e 60 fps fissi con LudemNR |
+| Giochi Windows (Proton) e Linux | ✅ | Control, The Witcher 3 Remastered e Control Resonant a 1080p con LudemNR |
 | Aggiornamenti di sistema e kernel | ✅ | `ludemos-aggiorna`, passaggio con kexec |
 | Audio HDMI | ✅ | correzione per il chip HDMI FLAVA3 |
 | HDR10 | ✅ | desktop KDE e giochi avviati dal launcher; YCbCr 4:2:2 a 12 bit a 1080p60/2160p60 |
@@ -513,6 +513,7 @@ Provati sulla console, con TV 4K a 60 Hz, dal launcher LudemOS Home con Proton-C
 |---|---|---|---|---|
 | **Control** | DX12 | 1080p | **LudemNR** | **60 fps fissi** |
 | **The Witcher 3: Wild Hunt** (Remastered, next-gen) | DX12 | 1080p (calcolo 960×540) | **LudemNR** al posto di XeSS | **60 fps fissi**, immagine nitida e senza scie |
+| **Control Resonant** | DX12 | 1080p (calcolo 1280×720), HDR10 | **LudemNR** al posto di FSR 3.1, più la generazione di fotogrammi FSR del gioco | **60 fps** alla TV (30 calcolati, limite del gioco), LudemNR 29,8 fps contro 28,5 di FSR nello stesso punto; un po' di ritardo dei comandi per la generazione di fotogrammi, in città limitato dalla CPU |
 
 ---
 
@@ -558,7 +559,8 @@ temporale (DLSS, FSR 2/3, XeSS). Gli ingressi (colore a bassa risoluzione, profo
 | grande, 32 canali | 17,2 ms |
 
 Risultato attuale su una scena di prova mai vista (960×540 → 1080p): bilineare 26,8 dB, LudemNR **30,1 dB in
-0,32 ms**. Nei giochi: **Control** e **The Witcher 3 Remastered** in DX12 a 1080p e **60 fps fissi** con LudemNR
+0,32 ms**. Nei giochi: **Control** e **The Witcher 3 Remastered** in DX12 a 1080p e **60 fps fissi** con LudemNR;
+**Control Resonant** a 1080p, HDR10 e 60 fps con LudemNR più la generazione di fotogrammi FSR del gioco
 (vedi [Giochi provati](#giochi-provati)).
 
 ---

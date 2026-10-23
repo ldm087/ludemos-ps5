@@ -85,7 +85,7 @@ hardware differs from the models the original project was tested on.
 | Slim fan | ✅ | temperature target set by the kernel and the daemon |
 | CPU/GPU clocks | ✅ | idle 1600–1800 / 800–1000 MHz, in-game boost 3500 / 2230 MHz |
 | KDE Plasma desktop (Wayland) at 4K | ✅ | 2× scaling, on-screen keyboard |
-| Windows (Proton) and Linux games | ✅ | Control and The Witcher 3 Remastered at 1080p, locked 60 fps with LudemNR |
+| Windows (Proton) and Linux games | ✅ | Control, The Witcher 3 Remastered and Control Resonant at 1080p with LudemNR |
 | System and kernel updates | ✅ | `ludemos-aggiorna`, switch via kexec |
 | HDMI audio | ✅ | fix for the FLAVA3 HDMI chip |
 | HDR10 | ✅ | KDE desktop and games started from the launcher; 12-bit YCbCr 4:2:2 at 1080p60/2160p60 |
@@ -512,6 +512,7 @@ Tested on the console, on a 4K 60 Hz TV, from the LudemOS Home launcher with Pro
 |---|---|---|---|---|
 | **Control** | DX12 | 1080p | **LudemNR** | **locked 60 fps** |
 | **The Witcher 3: Wild Hunt** (Remastered, next-gen) | DX12 | 1080p (rendered at 960×540) | **LudemNR** replacing XeSS | **locked 60 fps**, sharp image, no ghosting |
+| **Control Resonant** | DX12 | 1080p (rendered at 1280×720), HDR10 | **LudemNR** replacing FSR 3.1, plus the game's FSR frame generation | **60 fps** on the TV (30 rendered, game cap), LudemNR 29.8 fps vs FSR 28.5 in the same spot; some input lag from frame generation, CPU-bound in the city |
 
 ---
 
@@ -557,7 +558,8 @@ with a `ludemnr` module.
 | large, 32 channels | 17.2 ms |
 
 Current result on an unseen test scene (960×540 → 1080p): bilinear 26.8 dB, LudemNR **30.1 dB in 0.32 ms**. In
-games: **Control** and **The Witcher 3 Remastered** in DX12 at 1080p and **locked 60 fps** with LudemNR (see
+games: **Control** and **The Witcher 3 Remastered** in DX12 at 1080p and **locked 60 fps** with LudemNR;
+**Control Resonant** at 1080p, HDR10 and 60 fps with LudemNR plus the game's FSR frame generation (see
 [Tested games](#tested-games)).
 
 ---
